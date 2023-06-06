@@ -10,3 +10,11 @@ class LinkedList:
         self.head = new_node
         self.tail = new_node
         length = 1
+
+    def print_list(self):
+        array_list = []
+        current_node = self.head
+        while current_node is not None:
+            array_list.append(current_node.value)
+            current_node = current_node.next
+        return array_list
