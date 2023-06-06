@@ -28,21 +28,21 @@ A linked list supports various operations that allow manipulation and retrieval 
 
 Insertion involves adding a new node to the linked list at a specified position. There are three main scenarios for insertion:
 
-1. **Insertion at the Beginning**: In this case, a new node is inserted at the beginning of the linked list, becoming the new head of the list. The new node's next pointer is set to the current head, effectively pushing the existing elements down the list.
+1. **Prepend - Insertion at the Beginning**: In this case, a new node is inserted at the beginning of the linked list, becoming the new head of the list. The new node's next pointer is set to the current head, effectively pushing the existing elements down the list.
 
-2. **Insertion in the Middle**: This scenario involves inserting a new node between two existing nodes. The new node's next pointer is set to the next node of the desired position, while the previous node's next pointer is updated to point to the new node.
+2. **Insert - Insertion in the Middle**: This scenario involves inserting a new node between two existing nodes. The new node's next pointer is set to the next node of the desired position, while the previous node's next pointer is updated to point to the new node.
 
-3. **Insertion at the End**: Here, a new node is inserted at the end of the linked list. The last node's next pointer is set to the new node, which becomes the new last node of the list.
+3. **Append - Insertion at the End**: Here, a new node is inserted at the end of the linked list. The last node's next pointer is set to the new node, which becomes the new last node of the list.
 
 ### Deletion
 
 Deletion involves removing a node from the linked list. Similar to insertion, there are three main scenarios for deletion:
 
-1. **Deletion at the Beginning**: In this case, the first node (head) of the linked list is removed. The head is updated to the next node, effectively discarding the current head.
+1. **Shift - Deletion at the Beginning**: In this case, the first node (head) of the linked list is removed. The head is updated to the next node, effectively discarding the current head.
 
-2. **Deletion in the Middle**: Here, a node is deleted from a position within the linked list, excluding the first and last nodes. The previous node's next pointer is updated to skip the deleted node and point to the next node.
+2. **Remove - Deletion in the Middle**: Here, a node is deleted from a position within the linked list, excluding the first and last nodes. The previous node's next pointer is updated to skip the deleted node and point to the next node.
 
-3. **Deletion at the End**: This scenario involves removing the last node from the linked list. The second-to-last node's next pointer is set to `null`, designating it as the new last node.
+3. **Pop - Deletion at the End**: This scenario involves removing the last node from the linked list. The second-to-last node's next pointer is set to `null`, designating it as the new last node.
 
 ### Traversal
 
@@ -51,17 +51,6 @@ Traversal refers to the process of accessing each node in the linked list in a s
 ### Searching
 
 Searching involves finding a specific value or condition within the linked list. Starting from the head node, you can iterate through the list, comparing each node's value with the desired value or condition. If a match is found, you can return the node or perform the required operation.
-
-Additionally, other operations can be implemented based on specific requirements, such as:
-
-- **Appending**: Appending involves adding a new node at the end of the linked list, regardless of the list's current length. This operation can be achieved by traversing the list to reach the last node and updating its next pointer.
-
-- **Insertion Sort**: Insertion sort can be applied to a linked list, where nodes are rearranged in ascending or descending order based on their values.
-
-- **Merging**: Merging two linked lists involves combining the nodes from both lists into a single linked list, maintaining the order of elements.
-
-By utilizing these operations, you can manipulate and retrieve data within a linked list to suit your specific requirements.
-
 
 ## Types of Linked Lists
 
@@ -109,22 +98,22 @@ These examples demonstrate how singly linked lists and doubly linked lists are e
 
 ## Time Complexity
 
-- Insertion at the Beginning: O(1)
+- Prepend - Insertion at the Beginning: O(1)
     - Inserting a node at the beginning of a linked list involves updating the head pointer, which takes constant time.
 
-- Insertion in the Middle: O(n)
+- Insert - Insertion in the Middle: O(n)
     - To insert a node at an arbitrary position in the linked list, you need to traverse the list until you reach the desired position. In the worst case, this requires visiting all n nodes, resulting in a linear time complexity.
 
-- Insertion at the End: O(n) or O(1) if the tail pointer is maintained
+- Append - Insertion at the End: O(n) or O(1) if the tail pointer is maintained
     - If the linked list maintains a tail pointer, inserting a node at the end can be done in constant time by updating the tail pointer. Otherwise, you need to traverse the entire list to reach the last node, resulting in a linear time complexity.
 
-- Deletion at the Beginning: O(1)
+- Shift - Deletion at the Beginning: O(1)
     - Deleting the first node involves updating the head pointer, which can be done in constant time.
 
-- Deletion in the Middle: O(n)
+- Remove - Deletion in the Middle: O(n)
     - Deleting a node from an arbitrary position requires traversing the list to find the node to be deleted. In the worst case, you may need to visit all n nodes, resulting in a linear time complexity.
 
-- Deletion at the End: O(n) or O(1) if the tail pointer is maintained
+- Pop - Deletion at the End: O(n) or O(1) if the tail pointer is maintained
     - Similar to insertion, deleting the last node can be done in constant time if the tail pointer is maintained. Otherwise, you need to traverse the list to update the second-to-last node's next pointer, resulting in a linear time complexity.
 
 - Traversal: O(n)
