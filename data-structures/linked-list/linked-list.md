@@ -10,12 +10,12 @@ A linked list is composed of nodes, where each node contains:
 
 With this in mind, the basic structure of a linked list can be visualized as follows:
 
-Node 1         Node 2         Node 3         Node 4
-+-------+      +-------+      +-------+      +-------+
-| Value |  --> | Value |  --> | Value |  --> | Value |
-+-------+      +-------+      +-------+      +-------+
-|  Next |      |  Next |      |  Next |      |  Next |
-+-------+      +-------+      +-------+      +-------+
+    Node 1         Node 2         Node 3         Node 4
+    +-------+      +-------+      +-------+      +-------+
+    | Value |  --> | Value |  --> | Value |  --> | Value |
+    +-------+      +-------+      +-------+      +-------+
+    |  Next |      |  Next |      |  Next |      |  Next |
+    +-------+      +-------+      +-------+      +-------+
 
 Here, each node stores a value and a reference to the next node. The last node in the list points to `null`, indicating the end of the list.
 
