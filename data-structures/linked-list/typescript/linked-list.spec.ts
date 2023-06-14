@@ -1,8 +1,13 @@
 import { LinkedList } from './linked-list';
 
 describe('LinkedList', () => {
+	let linkedList: LinkedList<number>;
+
+	beforeEach(() => {
+		linkedList = new LinkedList(10);
+	});
+
 	it('should append values correctly', () => {
-		const linkedList = new LinkedList(10);
 		linkedList.append(20);
 		linkedList.append(30);
 
@@ -11,7 +16,6 @@ describe('LinkedList', () => {
 	});
 
 	it('should append multiple values correctly', () => {
-		const linkedList = new LinkedList(10);
 		linkedList.append(20);
 		linkedList.append(30);
 		linkedList.append(40);
@@ -22,7 +26,6 @@ describe('LinkedList', () => {
 	});
 
 	it('should append values and print list correctly', () => {
-		const linkedList = new LinkedList(10);
 		linkedList.append(20);
 		linkedList.append(30);
 		linkedList.append(40);

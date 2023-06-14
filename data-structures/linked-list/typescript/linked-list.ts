@@ -14,7 +14,7 @@ export class LinkedList<T> {
 		this.length = 1;
 	}
 
-	append(value: T) {
+	append(value: T): void {
 		const newNode = new Node(value);
 		if (this.head === null) {
 			this.head = newNode;
@@ -24,10 +24,9 @@ export class LinkedList<T> {
 			this.tail = newNode;
 		}
 		this.length++;
-		return this;
 	}
 
-	printList() {
+	printList(): T[] {
 		const arrayList: T[] = [];
 		let currentNode = this.head;
 		while (currentNode !== null) {
