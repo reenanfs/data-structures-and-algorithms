@@ -1,7 +1,7 @@
 class Node:
     def __init__(self, value):
         self.value = value
-        self.next = None
+        self.next: Node | None = None
 
 
 class LinkedList:
@@ -20,6 +20,24 @@ class LinkedList:
         else:
             self.tail.next = new_node
             self.tail = new_node
+
+        self.length += 1
+
+    def insert(self, index: int, value):
+        if index <= 0:
+            return self.prepend(value)
+        elif index > self.length - 1:
+            return self.append(value)
+
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            previous_node = self.get(index - 1)
+            current_node = previous_node.next
+            previous_node.next = new_node
+            new_node.next = current_node
 
         self.length += 1
 
@@ -67,6 +85,25 @@ class LinkedList:
 
         return removed_node.value
 
+    def remove(self, index: int):
+        if self.length == 0:
+            return None
+
+        if index <= 0:
+            return self.pop_head()
+        elif index >= self.length - 1:
+            return self.pop()
+
+        previous_node = self.get(index - 1)
+        removed_node = previous_node.next
+        next_node = removed_node.next
+
+        previous_node.next = next_node
+        removed_node.next = None
+
+        self.length -= 1
+        return removed_node.value
+
     def get(self, index: int) -> Node:
         if index < 0 or index > self.length - 1:
             raise IndexError("Index out of bounds")
@@ -81,7 +118,7 @@ class LinkedList:
 
         return current_node
 
-    def set(self, index: int, value) -> Node:
+    def set_value(self, index: int, value) -> Node:
         current_node = self.get(index)
         current_node.value = value
         return current_node
@@ -93,3 +130,18 @@ class LinkedList:
             array_list.append(current_node.value)
             current_node = current_node.next
         return array_list
+
+    def reverse(self):
+        if self.length <= 1:
+            return
+
+        previous_node = None
+        current_node = self.head
+
+        self.head, self.tail = self.tail, self.head
+
+        while current_node is not None:
+            next_node = current_node.next
+            current_node.next = previous_node
+            previous_node = current_node
+            current_node = next_node
