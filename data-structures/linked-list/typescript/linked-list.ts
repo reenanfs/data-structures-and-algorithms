@@ -49,7 +49,7 @@ export class LinkedList<T> {
 		this.length++;
 	}
 
-	unshift(value: T) {
+	unshift(value: T): void {
 		const newNode = new Node(value);
 		if (this.length === 0) {
 			this.head = newNode;
@@ -62,7 +62,7 @@ export class LinkedList<T> {
 		this.length++;
 	}
 
-	shift() {
+	shift(): T | null {
 		if (this.length === 0) {
 			return null;
 		}
@@ -79,7 +79,7 @@ export class LinkedList<T> {
 		return returnedNode!.value;
 	}
 
-	pop() {
+	pop(): T | null {
 		if (!this.tail) {
 			return null;
 		}
@@ -99,7 +99,7 @@ export class LinkedList<T> {
 		return removedNode.value;
 	}
 
-	remove(index: number) {
+	remove(index: number): T | null {
 		if (this.length === 0) {
 			return null;
 		}
@@ -152,7 +152,7 @@ export class LinkedList<T> {
 		return arrayList;
 	}
 
-	reverse() {
+	reverse(): void {
 		if (this.length <= 1) {
 			return;
 		}
