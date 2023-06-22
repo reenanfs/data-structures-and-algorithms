@@ -56,13 +56,15 @@ class LinkedList:
     def pop_head(self):
         if self.length == 0:
             return None
-        elif self.length == 1:
-            returned_node = self.head
+
+        returned_node = self.head
+
+        if self.length == 1:
             self.head = None
             self.tail = None
         else:
-            returned_node = self.head
             self.head = self.head.next
+            returned_node.next = None
 
         self.length -= 1
         return returned_node.value

@@ -232,6 +232,9 @@ class TestLinkedList(unittest.TestCase):
         with self.assertRaises(IndexError):
             self.linked_list.get(3)
 
+        for _ in range(self.linked_list.length):
+            self.linked_list.pop()
+
     def test_set_value(self):
         # Test positive index values
         returned_node = self.linked_list.set_value(0, 30)

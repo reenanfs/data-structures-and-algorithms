@@ -4,7 +4,7 @@
 	"description": "Welcome to my Data Structures and Algorithms repository! This repo serves as a documentation of my journey as I explore different data structures and algorithms. The content will be gradually filled with implementations, explanations, and examples as I learn and deepen my understanding.",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest"
+		"test": "jest --watch"
 	},
 	"repository": {
 		"type": "git",

@@ -1,3 +1,7 @@
 ## Typescript
 # Folders
 node_modules/
+
+## Python
+# Folders
+__pycache__/
