@@ -1,5 +1,9 @@
 class Node<T> {
-	constructor(public value: T, public next: Node<T> | null = null) {}
+	constructor(
+		public value: T | null = null,
+		public next: Node<T> | null = null,
+		public prev: Node<T> | null = null
+	) {}
 }
 
 export class LinkedList<T> {
@@ -7,11 +11,10 @@ export class LinkedList<T> {
 	tail: Node<T> | null;
 	length: number;
 
-	constructor(value: T) {
-		const newNode = new Node(value);
-		this.head = newNode;
-		this.tail = newNode;
-		this.length = 1;
+	constructor() {
+		this.head = null;
+		this.tail = null;
+		this.length = 0;
 	}
 
 	push(value: T): void {
@@ -20,6 +23,7 @@ export class LinkedList<T> {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
+			newNode.prev = this.tail;
 			this.tail!.next = newNode;
 			this.tail = newNode;
 		}
@@ -35,16 +39,14 @@ export class LinkedList<T> {
 
 		const newNode = new Node(value);
 
-		if (this.length === 0) {
-			this.head = newNode;
-			this.tail = newNode;
-		} else {
-			const previousNode = this.get(index - 1);
-			const currentNode = previousNode!.next;
+		const previousNode = this.get(index - 1);
+		const currentNode = previousNode!.next;
 
-			previousNode!.next = newNode;
-			newNode!.next = currentNode;
-		}
+		previousNode!.next = newNode;
+		currentNode!.prev = newNode;
+
+		newNode!.next = currentNode;
+		newNode!.prev = previousNode;
 
 		this.length++;
 	}
@@ -55,6 +57,7 @@ export class LinkedList<T> {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
+			this.head!.prev = newNode;
 			newNode.next = this.head;
 			this.head = newNode;
 		}
@@ -71,7 +74,9 @@ export class LinkedList<T> {
 			this.head = null;
 			this.tail = null;
 		} else {
-			this.head = this.head!.next;
+			const nextNode = this.head!.next;
+			this.head = nextNode;
+			nextNode!.prev = null;
 			returnedNode!.next = null;
 		}
 
@@ -90,9 +95,10 @@ export class LinkedList<T> {
 			this.head = null;
 			this.tail = null;
 		} else {
-			const previousNode = this.get(this.length - 2);
+			const previousNode = this.tail.prev;
 			this.tail = previousNode;
 			this.tail!.next = null;
+			removedNode.prev = null;
 		}
 
 		this.length--;
@@ -114,7 +120,10 @@ export class LinkedList<T> {
 		const nextNode = removedNode!.next;
 
 		previousNode!.next = nextNode;
+		nextNode!.prev = previousNode;
+
 		removedNode!.next = null;
+		removedNode!.prev = null;
 
 		this.length--;
 		return removedNode!.value;
@@ -129,10 +138,19 @@ export class LinkedList<T> {
 			return this.tail;
 		}
 
-		let currentNode = this.head;
-		for (let i = 0; i < index; i++) {
-			currentNode = currentNode!.next;
+		let currentNode: Node<T>;
+		if (index < this.length / 2) {
+			currentNode = this.head!;
+			for (let i = 0; i < index; i++) {
+				currentNode = currentNode!.next!;
+			}
+		} else {
+			currentNode = this.tail!;
+			for (let i = this.length - 1; i > index; i--) {
+				currentNode = currentNode!.next!;
+			}
 		}
+
 		return currentNode!;
 	}
 
@@ -146,7 +164,7 @@ export class LinkedList<T> {
 		const arrayList: T[] = [];
 		let currentNode = this.head;
 		while (currentNode !== null) {
-			arrayList.push(currentNode.value);
+			arrayList.push(currentNode.value as T);
 			currentNode = currentNode.next;
 		}
 		return arrayList;
@@ -166,6 +184,7 @@ export class LinkedList<T> {
 		while (currentNode) {
 			nextNode = currentNode.next;
 			currentNode.next = previousNode;
+			currentNode.prev = nextNode;
 			previousNode = currentNode;
 			currentNode = nextNode;
 		}

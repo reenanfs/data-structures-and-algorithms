@@ -86,8 +86,8 @@ class DoublyLinkedList:
             new_tail = self.tail.prev
             new_tail.next = None
             self.tail = new_tail
+            removed_node.prev = None
 
-        removed_node.prev = None
         self.length -= 1
         return removed_node.value
 
