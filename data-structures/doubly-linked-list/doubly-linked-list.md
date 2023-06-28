@@ -1,56 +1,59 @@
-# Linked List
+# Doubly Linked List
 
-A linked list is a linear data structure that consists of a sequence of elements called nodes. Each node contains two components: a value or data field and a reference (or pointer) to the next node in the sequence.
+A doubly linked list is a type of linked list where each node contains references to both the next and previous nodes in the sequence. This additional reference to the previous node allows for traversal in both directions, providing more flexibility compared to a singly linked list.
 
 ## Structure
 
-A linked list is composed of nodes, where each node contains:
+In a doubly linked list, each node contains the following components:
 
 - **Value**: The value or information to be stored.
 - **Next**: A reference to the next node in the sequence.
+- **Previous**: A reference to the previous node in the sequence.
 
-With this in mind, the basic structure of a linked list can be visualized as follows:
+The basic structure of a doubly linked list can be visualized as follows:
 
-    Node 1         Node 2         Node 3         Node 4
-    +-------+      +-------+      +-------+      +-------+
-    | Value |  --> | Value |  --> | Value |  --> | Value |
-    +-------+      +-------+      +-------+      +-------+
-    |  Next |      |  Next |      |  Next |      |  Next |
-    +-------+      +-------+      +-------+      +-------+
+            Node 1          Node 2          Node 3          Node 4
+            +----------+    +----------+    +----------+    +----------+
+            |   Value  |    |   Value  |    |   Value  |    |   Value  |
+            +----------+    +----------+    +----------+    +----------+
+            |  Next    |--> |  Next    |--> |  Next    |--> |  Next    |
+            +----------+    +----------+    +----------+    +----------+
+            | Previous |<-- | Previous |<-- | Previous |<-- | Previous |
+            +----------+    +----------+    +----------+    +----------+
 
-Here, each node stores a value and a reference to the next node. The last node in the list points to `null`, indicating the end of the list.
+Here, the first node's previous pointer and the last node's next pointer both point to null, indicating the start and end of the list.
 
 ## Operations
 
-A linked list supports various operations that allow manipulation and retrieval of data within the list. Here are some common operations performed on a linked list:
+A doubly linked list supports similar operations to a singly linked list, with the added advantage of bidirectional traversal. Here are the common operations performed on a doubly linked list:
 
 ### Insertion
 
-Insertion involves adding a new node to the linked list at a specified position. There are three main scenarios for insertion:
+Insertion in a doubly linked list can be performed in the same three main scenarios as a singly linked list:
 
-1. **Prepend - Insertion at the Beginning**: In this case, a new node is inserted at the beginning of the linked list, becoming the new head of the list. The new node's next pointer is set to the current head, effectively pushing the existing elements down the list.
+1. **Prepend - Insertion at the Beginning**: A new node is inserted at the beginning of the list, becoming the new head. The new node's next pointer is set to the current head, and the current head's previous pointer is updated to point to the new node.
 
-2. **Insert - Insertion in the Middle**: This scenario involves inserting a new node between two existing nodes. The new node's next pointer is set to the next node of the desired position, while the previous node's next pointer is updated to point to the new node.
+2. **Insert - Insertion in the Middle**: A new node is inserted between two existing nodes. The new node's next pointer is set to the next node of the desired position, and the new node's previous pointer is set to the previous node. The previous node's next pointer is updated to point to the new node, and the next node's previous pointer is updated to point to the new node.
 
-3. **Append - Insertion at the End**: Here, a new node is inserted at the end of the linked list. The last node's next pointer is set to the new node, which becomes the new last node of the list.
+3. **Append - Insertion at the End**: A new node is inserted at the end of the list. The last node's next pointer is set to the new node, and the new node's previous pointer is set to the previous last node. The new node becomes the new last node, and its next pointer is set to null.
 
 ### Deletion
 
-Deletion involves removing a node from the linked list. Similar to insertion, there are three main scenarios for deletion:
+Deletion in a doubly linked list is similar to deletion in a singly linked list:
 
-1. **Shift / Pop Head - Deletion at the Beginning**: In this case, the first node (head) of the linked list is removed. The head is updated to the next node, effectively discarding the current head.
+1. **Shift / Pop Head - Deletion at the Beginning**: The first node (head) of the list is removed. The head is updated to the next node, and the new head's previous pointer is set to null.
 
-2. **Remove - Deletion in the Middle**: Here, a node is deleted from a position within the linked list, excluding the first and last nodes. The previous node's next pointer is updated to skip the deleted node and point to the next node.
+2. **Remove - Deletion in the Middle**: A node is deleted from an arbitrary position within the list, excluding the first and last nodes. The previous node's next pointer is updated to skip the deleted node and point to the next node, and the next node's previous pointer is updated to point to the previous node.
 
-3. **Pop - Deletion at the End**: This scenario involves removing the last node from the linked list. The second-to-last node's next pointer is set to `null`, designating it as the new last node.
+3. **Pop - Deletion at the End**: The last node of the list is removed. The second-to-last node's next pointer is set to null, designating it as the new last node.
 
 ### Traversal
 
-Traversal refers to the process of accessing each node in the linked list in a sequential manner. Starting from the head node, you can iterate through the list by following the next pointers until you reach the end of the list. Traversal allows you to perform operations on each node, such as printing the values or applying transformations.
+Traversal in a doubly linked list allows for both forward and backward traversal. You can start from either the head or tail and follow the next and previous pointers to iterate through the list in either direction. This bidirectional traversal provides more flexibility compared to a singly linked list.
 
 ### Searching
 
-Searching involves finding a specific value or condition within the linked list. Starting from the head node, you can iterate through the list, comparing each node's value with the desired value or condition. If a match is found, you can return the node or perform the required operation.
+Searching in a doubly linked list is similar to searching in a singly linked list. You can traverse the list in either direction, comparing each node's value with the desired value or condition. If a match is found, you can return the node or perform the required operation.
 
 ## Types of Linked Lists
 
@@ -131,10 +134,8 @@ These examples demonstrate how singly linked lists and doubly linked lists are e
 
 ## Space Complexity
 
-The space complexity of a linked list is O(n) because it requires additional memory to store the nodes and their corresponding pointers. Each node in the linked list occupies space for the value/data and the next (and possibly previous) pointers.
+The space complexity of a doubly linked list is O(n), similar to a singly linked list. Each node requires additional memory to store the value/data and the references to the next and previous nodes.
 
-It's worth noting that the space complexity can be further increased if additional pointers, such as a tail pointer or previous pointers in a doubly linked list, are maintained.
-
-Keep in mind that these time and space complexities are general guidelines and may vary depending on specific implementations or optimizations.
+The space complexity can be further increased if additional pointers, such as a tail pointer, are maintained in the doubly linked list implementation.
 
 **Note**: This file is a living document and will be updated as I continue to learn more about linked lists and enhance my understanding.
