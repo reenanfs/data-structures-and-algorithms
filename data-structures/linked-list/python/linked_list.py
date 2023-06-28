@@ -30,14 +30,11 @@ class LinkedList:
             return self.append(value)
 
         new_node = Node(value)
-        if self.length == 0:
-            self.head = new_node
-            self.tail = new_node
-        else:
-            previous_node = self.get(index - 1)
-            current_node = previous_node.next
-            previous_node.next = new_node
-            new_node.next = current_node
+
+        previous_node = self.get(index - 1)
+        current_node = previous_node.next
+        previous_node.next = new_node
+        new_node.next = current_node
 
         self.length += 1
 
