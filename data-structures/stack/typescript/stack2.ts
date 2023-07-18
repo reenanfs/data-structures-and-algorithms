@@ -1,9 +1,10 @@
 export class Node<T> {
-	constructor(public value: T, public next: Node<T> | null = null) {}
+	next: Node<T> | null = null;
+	constructor(public value: T) {}
 }
 
 export class Stack<T> {
-	top: Node<T> | null = null;
+	head: Node<T> | null = null;
 	length: number = 0;
 
 	constructor() {}
@@ -11,10 +12,10 @@ export class Stack<T> {
 	push(value: T) {
 		const newNode = new Node(value);
 		if (this.length === 0) {
-			this.top = newNode;
+			this.head = newNode;
 		} else {
-			newNode.next = this.top;
-			this.top = newNode;
+			newNode.next = this.head;
+			this.head = newNode;
 		}
 
 		this.length++;
@@ -25,8 +26,8 @@ export class Stack<T> {
 		if (this.length === 0) {
 			return removedNode;
 		} else {
-			removedNode = this.top;
-			this.top = this.top!.next;
+			removedNode = this.head;
+			this.head = this.head!.next;
 			removedNode!.next = null;
 		}
 
@@ -42,12 +43,12 @@ export class Stack<T> {
 		if (this.length === 0) {
 			return null;
 		}
-		return this.top!.value;
+		return this.head!.value;
 	}
 
 	printStack() {
 		const stackList = [];
-		let currentNode = this.top;
+		let currentNode = this.head;
 
 		while (currentNode) {
 			stackList.push(currentNode.value);
