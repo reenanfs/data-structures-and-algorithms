@@ -1,10 +1,8 @@
 export class Node<T> {
-	value: T;
-	children: Node<T>[];
+	children: Node<T>[] = [];
 
-	constructor(value: T) {
+	constructor(public value: T) {
 		this.value = value;
-		this.children = [];
 	}
 
 	insert(value: T): void {
