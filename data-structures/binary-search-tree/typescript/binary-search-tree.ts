@@ -10,11 +10,14 @@ export class BinarySearchTree<T> {
 
 	insertIteratively(value: T) {
 		const newNode = new Node(value);
+
 		if (!this.root) {
 			this.root = newNode;
 			return;
 		}
+
 		let currentNode: Node<T> | null = this.root;
+
 		while (currentNode) {
 			if (value < currentNode.value) {
 				if (!currentNode.left) {
@@ -28,28 +31,28 @@ export class BinarySearchTree<T> {
 					return;
 				}
 				currentNode = currentNode.right;
+			} else {
+				return;
 			}
-
-			return;
 		}
 	}
 
 	insertRecursively(value: T): void {
-		this.root = this.insertRecursivelyHelper(this.root, value);
-	}
+		const insertHelper = (node: Node<T> | null, value: T): Node<T> => {
+			if (!node) {
+				return new Node(value);
+			}
 
-	private insertRecursivelyHelper(node: Node<T> | null, value: T): Node<T> {
-		if (!node) {
-			return new Node(value);
-		}
+			if (value < node.value) {
+				node.left = insertHelper(node.left, value);
+			} else if (value > node.value) {
+				node.right = insertHelper(node.right, value);
+			}
 
-		if (value < node.value) {
-			node.left = this.insertRecursivelyHelper(node.left, value);
-		} else if (value > node.value) {
-			node.right = this.insertRecursivelyHelper(node.right, value);
-		}
+			return node;
+		};
 
-		return node;
+		this.root = insertHelper(this.root, value);
 	}
 
 	containsIteractively(value: T): boolean {
@@ -71,25 +74,92 @@ export class BinarySearchTree<T> {
 	}
 
 	containsRecursively(value: T): boolean {
-		return this.containsRecursivelyHelper(this.root, value);
+		const containsHelper = (node: Node<T> | null, value: T): boolean => {
+			if (!node) {
+				return false;
+			} else if (node.value === value) {
+				return true;
+			} else if (node.value > value) {
+				return containsHelper(node.left, value);
+			} else {
+				return containsHelper(node.right, value);
+			}
+		};
+		return containsHelper(this.root, value);
 	}
 
-	private containsRecursivelyHelper(node: Node<T> | null, value: T): boolean {
-		if (!node) {
-			return false;
-		} else if (node.value === value) {
-			return true;
-		} else if (node.value > value) {
-			return this.containsRecursivelyHelper(node.left, value);
-		} else {
-			return this.containsRecursivelyHelper(node.right, value);
+	breadthFirstSearchIteractively(): T[] {
+		const queue: Node<T>[] = [];
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
 		}
+
+		queue.push(this.root);
+
+		while (queue.length) {
+			const currentNode = queue.shift()!;
+
+			valueList.push(currentNode.value);
+
+			if (currentNode.left) {
+				queue.push(currentNode.left);
+			}
+
+			if (currentNode.right) {
+				queue.push(currentNode.right);
+			}
+		}
+
+		return valueList;
+	}
+
+	breadthFirstSearchRecursively(): T[] {
+		const nodeList: T[] = [];
+
+		if (!this.root) {
+			return nodeList;
+		}
+
+		const traverse = (nodeQueue: Node<T>[]): T[] => {
+			if (!nodeQueue.length) {
+				return nodeList;
+			}
+
+			const currentNode = nodeQueue.shift()!;
+
+			nodeList.push(currentNode.value);
+
+			if (currentNode.left) {
+				nodeQueue.push(currentNode.left);
+			}
+
+			if (currentNode.right) {
+				nodeQueue.push(currentNode.right);
+			}
+
+			return traverse(nodeQueue);
+		};
+
+		const queue: Node<T>[] = [];
+		queue.push(this.root);
+
+		return traverse(queue);
 	}
 }
 
-const tree = new BinarySearchTree();
+const tree = new BinarySearchTree<number>();
 
-tree.insertIteratively(10);
-tree.insertIteratively(10);
+tree.insertRecursively(30);
+tree.insertRecursively(10);
+tree.insertRecursively(20);
 
+tree.insertRecursively(40);
+tree.insertRecursively(5);
+
+const valueList = tree.breadthFirstSearchIteractively();
+const valueList2 = tree.breadthFirstSearchRecursively();
+console.log(valueList);
+console.log(valueList2);
 console.log(JSON.stringify(tree));
