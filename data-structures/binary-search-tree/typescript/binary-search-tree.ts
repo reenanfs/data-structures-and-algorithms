@@ -55,7 +55,7 @@ export class BinarySearchTree<T> {
 		this.root = insertHelper(this.root, value);
 	}
 
-	containsIteractively(value: T): boolean {
+	containsIteratively(value: T): boolean {
 		if (!this.root) {
 			return false;
 		}
@@ -88,7 +88,7 @@ export class BinarySearchTree<T> {
 		return containsHelper(this.root, value);
 	}
 
-	breadthFirstSearchIteractively(): T[] {
+	breadthFirstSearchIteratively(): T[] {
 		const queue: Node<T>[] = [];
 		const valueList: T[] = [];
 
@@ -116,20 +116,20 @@ export class BinarySearchTree<T> {
 	}
 
 	breadthFirstSearchRecursively(): T[] {
-		const nodeList: T[] = [];
+		const valueList: T[] = [];
 
 		if (!this.root) {
-			return nodeList;
+			return valueList;
 		}
 
 		const traverse = (nodeQueue: Node<T>[]): T[] => {
 			if (!nodeQueue.length) {
-				return nodeList;
+				return valueList;
 			}
 
 			const currentNode = nodeQueue.shift()!;
 
-			nodeList.push(currentNode.value);
+			valueList.push(currentNode.value);
 
 			if (currentNode.left) {
 				nodeQueue.push(currentNode.left);
@@ -147,19 +147,145 @@ export class BinarySearchTree<T> {
 
 		return traverse(queue);
 	}
+
+	depthFirstSearchIterativelyPreOrder() {
+		const stack: Node<T>[] = [];
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
+		}
+
+		stack.push(this.root);
+
+		while (stack.length) {
+			const currentNode = stack.pop()!;
+
+			valueList.push(currentNode.value);
+
+			if (currentNode.right) {
+				stack.push(currentNode.right);
+			}
+
+			if (currentNode.left) {
+				stack.push(currentNode.left);
+			}
+		}
+
+		return valueList;
+	}
+
+	depthFirstSearchRecursivelyPreOrder() {
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
+		}
+
+		const traverse = (node: Node<T>): void => {
+			valueList.push(node.value);
+
+			if (node.left) {
+				traverse(node.left);
+			}
+
+			if (node.right) {
+				traverse(node.right);
+			}
+		};
+
+		traverse(this.root);
+		return valueList;
+	}
+
+	depthFirstSearchIterativelyPostOrder() {
+		const stack: Node<T>[] = [];
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
+		}
+
+		stack.push(this.root);
+
+		while (stack.length) {
+			const currentNode = stack.pop()!;
+			valueList.unshift(currentNode.value);
+
+			if (currentNode.left) {
+				stack.push(currentNode.left);
+			}
+			if (currentNode.right) {
+				stack.push(currentNode.right);
+			}
+		}
+
+		return valueList;
+	}
+
+	depthFirstSearchRecursivelyPostOrder() {
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
+		}
+
+		const traverse = (node: Node<T>): void => {
+			if (node.left) {
+				traverse(node.left);
+			}
+
+			if (node.right) {
+				traverse(node.right);
+			}
+			valueList.push(node.value);
+		};
+
+		traverse(this.root);
+		return valueList;
+	}
+
+	depthFirstSearchIterativelyInOrder() {
+		const valueList: T[] = [];
+		if (!this.root) {
+			return valueList;
+		}
+
+		const stack: Node<T>[] = [];
+		let currentNode: Node<T> | null = this.root;
+
+		while (currentNode || stack.length > 0) {
+			while (currentNode) {
+				stack.push(currentNode);
+				currentNode = currentNode?.left;
+			}
+
+			currentNode = stack.pop()!;
+			valueList.push(currentNode.value);
+			currentNode = currentNode?.right;
+		}
+
+		return valueList;
+	}
+
+	depthFirstSearchRecursivelyInOrder() {
+		const valueList: T[] = [];
+
+		if (!this.root) {
+			return valueList;
+		}
+
+		const traverse = (node: Node<T>): void => {
+			if (node.left) {
+				traverse(node.left);
+			}
+			valueList.push(node.value);
+			if (node.right) {
+				traverse(node.right);
+			}
+		};
+
+		traverse(this.root);
+		return valueList;
+	}
 }
-
-const tree = new BinarySearchTree<number>();
-
-tree.insertRecursively(30);
-tree.insertRecursively(10);
-tree.insertRecursively(20);
-
-tree.insertRecursively(40);
-tree.insertRecursively(5);
-
-const valueList = tree.breadthFirstSearchIteractively();
-const valueList2 = tree.breadthFirstSearchRecursively();
-console.log(valueList);
-console.log(valueList2);
-console.log(JSON.stringify(tree));
