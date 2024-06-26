@@ -2,7 +2,7 @@ interface Graph {
 	[key: string]: string[];
 }
 
-class AdjacencyListGraph {
+export class AdjacencyListGraph {
 	private graph: Graph;
 
 	constructor() {
@@ -46,15 +46,81 @@ class AdjacencyListGraph {
 
 		this.graph[vertex2] = this.graph[vertex2].filter(edge => edge !== vertex1);
 	}
+
+	depthFirstSearchRecursive(initialVertex: string): Set<string> {
+		if (!this.graph[initialVertex]) {
+			throw new Error('Vertex not found in the graph');
+		}
+
+		const visited: Set<string> = new Set();
+		const traverse = (vertex: string): void => {
+			visited.add(vertex);
+			this.graph[vertex].forEach(neighbor => {
+				if (!visited.has(neighbor)) {
+					return traverse(neighbor);
+				}
+			});
+		};
+
+		traverse(initialVertex);
+		return visited;
+	}
+
+	depthFirstSearchIterative(initialVertex: string): Set<string> {
+		if (!this.graph[initialVertex]) {
+			throw new Error('Vertex not found in the graph');
+		}
+
+		const visited: Set<string> = new Set();
+		const stack: string[] = [];
+
+		stack.push(initialVertex);
+
+		while (stack.length) {
+			let vertex: string | undefined = stack.pop();
+
+			if (!vertex) {
+				break;
+			}
+
+			visited.add(vertex);
+
+			this.graph[vertex].forEach(neighbor => {
+				if (!visited.has(neighbor)) {
+					stack.push(neighbor);
+				}
+			});
+		}
+
+		return visited;
+	}
+
+	breadthFirstSearch(initialVertex: string): Set<string> {
+		if (!this.graph[initialVertex]) {
+			throw new Error('Vertex not found in the graph');
+		}
+
+		const visited: Set<string> = new Set();
+		const queue: string[] = [];
+
+		queue.push(initialVertex);
+
+		while (queue.length) {
+			const vertex: string | undefined = queue.shift();
+
+			if (!vertex) {
+				break;
+			}
+
+			visited.add(vertex);
+
+			this.graph[vertex].forEach(neighbor => {
+				if (!visited.has(neighbor)) {
+					queue.push(neighbor);
+				}
+			});
+		}
+
+		return visited;
+	}
 }
-
-const graph = new AdjacencyListGraph();
-
-graph.addVertex('Tokyo');
-graph.addVertex('Toronto');
-graph.addVertex('Rio');
-graph.addEdge('Tokyo', 'Toronto');
-graph.addEdge('Tokyo', 'Rio');
-graph.removeEdge('Tokyo', 'Rio');
-
-console.log(graph);

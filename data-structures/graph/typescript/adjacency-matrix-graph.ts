@@ -1,6 +1,6 @@
-class AdjacencyMatrixGraph {
-	private vertices: string[];
-	private matrix: number[][];
+export class AdjacencyMatrixGraph {
+	vertices: string[];
+	matrix: number[][];
 
 	constructor() {
 		this.vertices = [];
@@ -55,14 +55,3 @@ class AdjacencyMatrixGraph {
 		this.matrix[index2][index1] = 0;
 	}
 }
-
-const matrixGraph = new AdjacencyMatrixGraph();
-
-matrixGraph.addVertex('Tokyo');
-matrixGraph.addVertex('Toronto');
-matrixGraph.addVertex('Rio');
-matrixGraph.addEdge('Tokyo', 'Toronto');
-matrixGraph.addEdge('Tokyo', 'Rio');
-matrixGraph.removeEdge('Tokyo', 'Rio');
-
-console.log(matrixGraph);
